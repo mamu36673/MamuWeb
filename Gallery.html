@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Gallery | MAMU</title>
+    <style>
+        /* --- Color Palette Variables --- */
+        :root {
+            --primary-green: #0a5c36;
+            --accent-gold: #f9c623;
+            --deep-brown: #5c3a21;
+            --pure-white: #ffffff;
+            --off-white: #f9f9f9;
+            --text-dark: #222222;
+        }
+
+        /* --- Reset & Global Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--off-white);
+            padding-bottom: 60px;
+        }
+
+        /* --- Sub-Header Section --- */
+        .sub-header {
+            background-color: var(--primary-green);
+            color: var(--pure-white);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--accent-gold);
+        }
+
+        .sub-header h1 {
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .sub-header a {
+            color: var(--pure-white);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+            display: inline-block;
+            transition: color 0.2s ease;
+        }
+
+        .sub-header a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* --- Main Container --- */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* --- Filter Navigation Tabs --- */
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        .tab-btn {
+            background-color: var(--pure-white);
+            color: var(--primary-green);
+            border: 2px solid var(--primary-green);
+            padding: 10px 24px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background-color: var(--primary-green);
+            color: var(--pure-white);
+            border-color: var(--primary-green);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(10, 92, 54, 0.2);
+        }
+
+        /* --- Media Gallery Grid --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-item {
+            background-color: var(--pure-white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border: 1px solid #eef2f5;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            border-color: var(--accent-gold);
+        }
+
+        /* --- Image Wrapper --- */
+        .img-box {
+            position: relative;
+            width: 100%;
+            padding-top: 66.66%; /* 3:2 Aspect Ratio */
+            background-color: #eaeaea;
+            overflow: hidden;
+        }
+
+        .img-box img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover .img-box img {
+            transform: scale(1.06);
+        }
+
+        /* --- Card Content Bar --- */
+        .item-info {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--pure-white);
+            border-top: 1px solid #f5f5f5;
+        }
+
+        .item-text {
+            display: flex;
+            flex-direction: column;
+            max-width: 75%;
+        }
+
+        .item-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--deep-brown);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .item-category {
+            font-size: 0.8rem;
+            color: var(--primary-green);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        /* --- Download Icon Button --- */
+        .download-btn-direct {
+            background-color: #f0f7f4;
+            color: var(--primary-green);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .download-btn-direct:hover {
+            background-color: var(--accent-gold);
+            color: var(--deep-brown);
+            transform: scale(1.1);
+        }
+
+        /* --- Interactive Modal Lightbox Layout --- */
+        .gallery-modal {
+            display: none;
+            position: fixed;
+            z-index: 9000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        .modal-container {
+            position: relative;
+            width: 90%;
+            max-width: 850px;
+            display: flex;
+            flex-direction: column;
+            animation: zoomIn 0.3s ease-out forwards;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.92); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 0;
+            top: -45px;
+            color: var(--pure-white);
+            font-size: 36px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--accent-gold);
+        }
+
+        .modal-image-wrapper {
+            width: 100%;
+            background-color: #000;
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-height: 70vh;
+        }
+
+        .modal-image-wrapper img {
+            max-width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+        }
+
+        /* --- Modal Control Footer Bar --- */
+        .modal-action-bar {
+            background-color: var(--pure-white);
+            padding: 20px 25px;
+            border-radius: 0 0 8px 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 4px solid var(--primary-green);
+        }
+
+        .modal-meta h4 {
+            font-size: 1.2rem;
+            color: var(--deep-brown);
+            margin-bottom: 2px;
+        }
+
+        .modal-meta span {
+            color: var(--primary-green);
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .modal-download-action {
+            background-color: var(--primary-green);
+            color: var(--pure-white);
+            text-decoration: none;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .modal-download-action:hover {
+            background-color: var(--accent-gold);
+            color: var(--deep-brown);
+        }
+
+        /* SVG Icon Asset Alignments */
+        .icon-svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--deep-brown);
+            color: var(--pure-white);
+            text-align: center;
+            padding: 20px;
+            margin-top: 60px;
+            border-top: 5px solid var(--primary-green);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="sub-header">
+        <h1>MAMU Media Gallery</h1>
+        <a href="index.html">← Back to Home</a>
+    </header>
+
+    <main class="container">
+        <div class="filter-tabs">
+            <button class="tab-btn active" onclick="filterGallery('all', this)">All Media</button>
+            <button class="tab-btn" onclick="filterGallery('kainte', this)">Kaithe</button>
+            <button class="tab-btn" onclick="filterGallery('waterfall', this)">Waterfall</button>
+            <button class="tab-btn" onclick="filterGallery('eid', this)">Eid</button>
+            <button class="tab-btn" onclick="filterGallery('talent', this)">MUST Got Talent</button>
+        </div>
+
+        <div class="gallery-grid" id="mainGalleryGrid">
+            </div>
+    </main>
+
+    <div id="imageLightboxModal" class="gallery-modal" onclick="closeLightbox()">
+        <div class="modal-container" onclick="event.stopPropagation();">
+            <span class="modal-close" onclick="closeLightbox()">&times;</span>
+            <div class="modal-image-wrapper">
+                <img id="modalTargetImg" src="" alt="Expanded View Viewport">
+            </div>
+            <div class="modal-action-bar">
+                <div class="modal-meta">
+                    <h4 id="modalTargetTitle">Image Title</h4>
+                    <span id="modalTargetCategory">Category Group</span>
+                </div>
+                <a id="modalTargetDownload" href="" download class="modal-download-action">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+                    Download Image
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Muslim Association of Meru University (MAMU). All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // 1. Data configuration schema setting up groups cleanly without bloating source code lines
+        const groupConfigurations = [
+            { id: 'kainte',  label: 'Kaithe',  folder: 'images/', prefix: 'kaithe' },
+            { id: 'waterfall', label: 'Waterfall', folder: 'images/', prefix: 'waterfall' },
+            { id: 'eid',       label: 'Eid',       folder: 'images/', prefix: 'eid' },
+            { id: 'talent',    label: 'MUST Got Talent', folder: 'Dhaanto', prefix: 'Dhaanto' }
+        ];
+
+        const targetGrid = document.getElementById('mainGalleryGrid');
+
+        // 2. Loop assembly structure compiling exactly 20 distinct elements for each of the 4 arrays
+        groupConfigurations.forEach(group => {
+            for (let i = 1; i <= 20; i++) {
+                // Generates individual items dynamically. e.g. images/kaithe1.jpg, Dhaanto20.jpg
+                // Alter extension strings below smoothly if using mixed (.png, .jpeg) formats
+                const generatedSource = `${group.folder}${group.prefix}${i}.jpg`;
+                const printableTitle = `${group.label} Display — Frame ${i}`;
+
+                // Construct DOM elements directly
+                const gridCardNode = document.createElement('div');
+                gridCardNode.className = `gallery-item group-${group.id}`;
+                gridCardNode.setAttribute('data-category', group.id);
+                gridCardNode.setAttribute('onclick', `openLightbox('${generatedSource}', '${printableTitle}', '${group.label}')`);
+
+                gridCardNode.innerHTML = `
+                    <div class="img-box">
+                        <img src="${generatedSource}" alt="${printableTitle}" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x266?text=${group.prefix}+${i}'">
+                    </div>
+                    <div class="item-info">
+                        <div class="item-text">
+                            <span class="item-title">${printableTitle}</span>
+                            <span class="item-category">${group.label}</span>
+                        </div>
+                        <button class="download-btn-direct" title="Download File" onclick="event.stopPropagation(); triggerDirectDownload('${generatedSource}', '${printableTitle}')">
+                            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+                        </button>
+                    </div>
+                `;
+                targetGrid.appendChild(gridCardNode);
+            }
+        });
+
+        // 3. Filter Navigation Processing Logic
+        function filterGallery(targetCategoryId, selectedTabNode) {
+            // Update active state class handles across buttons dynamically
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            selectedTabNode.classList.add('active');
+
+            // Toggle show elements grid styles
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach(card => {
+                if (targetCategoryId === 'all' || card.getAttribute('data-category') === targetCategoryId) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // 4. Modal Lightbox Active Triggers
+        function openLightbox(imagePath, imageTitle, groupLabel) {
+            document.getElementById('modalTargetImg').src = imagePath;
+            document.getElementById('modalTargetTitle').innerText = imageTitle;
+            document.getElementById('modalTargetCategory').innerText = groupLabel;
+            
+            const downloadHandle = document.getElementById('modalTargetDownload');
+            downloadHandle.href = imagePath;
+            downloadHandle.setAttribute('download', imageTitle);
+
+            document.getElementById('imageLightboxModal').style.display = 'flex';
+            document.body.classList.add('modal-open');
+        }
+
+        function closeLightbox() {
+            document.getElementById('imageLightboxModal').style.display = 'none';
+            document.body.classList.remove('modal-open');
+        }
+
+        // 5. Standalone Action Button Event Handler for Image Download Execution
+        function triggerDirectDownload(imagePath, filename) {
+            const tempAnchorLink = document.createElement('a');
+            tempAnchorLink.href = imagePath;
+            tempAnchorLink.setAttribute('download', filename);
+            document.body.appendChild(tempAnchorLink);
+            tempAnchorLink.click();
+            document.body.removeChild(tempAnchorLink);
+        }
+    </script>
+</body>
+</html>
