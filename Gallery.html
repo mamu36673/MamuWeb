@@ -34,9 +34,28 @@
         .sub-header {
             background-color: var(--primary-green);
             color: var(--pure-white);
-            padding: 40px 20px;
+            padding: 30px 20px;
             text-align: center;
             border-bottom: 4px solid var(--accent-gold);
+        }
+
+        .header-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 10px auto;
+            border-radius: 50%;
+            background-color: var(--pure-white);
+            padding: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
         }
 
         .sub-header h1 {
@@ -328,12 +347,17 @@
 </head>
 <body>
 
+    <!-- Header -->
     <header class="sub-header">
+        <div class="header-logo">
+            <img src="images/logo.png" alt="MAMU Logo" onerror="this.onerror=null; this.parentNode.style.display='none';">
+        </div>
         <h1>MAMU Media Gallery</h1>
         <a href="index.html">← Back to Home</a>
     </header>
 
     <main class="container">
+        <!-- Filter Tabs -->
         <div class="filter-tabs">
             <button class="tab-btn active" onclick="filterGallery('all', this)">All Media</button>
             <button class="tab-btn" onclick="filterGallery('kainte', this)">Kaithe</button>
@@ -342,10 +366,13 @@
             <button class="tab-btn" onclick="filterGallery('talent', this)">MUST Got Talent</button>
         </div>
 
+        <!-- Gallery Grid Wrapper Container -->
         <div class="gallery-grid" id="mainGalleryGrid">
-            </div>
+            <!-- Populated smoothly via structural JavaScript engine below -->
+        </div>
     </main>
 
+    <!-- Modal Box Overlay Lightbox View Layout -->
     <div id="imageLightboxModal" class="gallery-modal" onclick="closeLightbox()">
         <div class="modal-container" onclick="event.stopPropagation();">
             <span class="modal-close" onclick="closeLightbox()">&times;</span>
@@ -365,10 +392,12 @@
         </div>
     </div>
 
+    <!-- Footer Summary Section -->
     <footer>
         <p>© 2026 Muslim Association of Meru University (MAMU). All Rights Reserved.</p>
     </footer>
 
+    <!-- Scripting Configuration Engine Logic -->
     <script>
         // 1. Data configuration schema setting up groups cleanly without bloating source code lines
         const groupConfigurations = [
