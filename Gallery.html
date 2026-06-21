@@ -415,9 +415,10 @@
                 gridCardNode.setAttribute('data-category', group.id);
                 gridCardNode.setAttribute('onclick', `openLightbox('${generatedSource}', '${printableTitle}', '${group.label}')`);
 
+                // ADDED loading="lazy" inside the img tag to fix network bottleneck
                 gridCardNode.innerHTML = `
                     <div class="img-box">
-                        <img src="${generatedSource}" alt="${printableTitle}" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x266?text=${group.prefix}+${i}'">
+                        <img src="${generatedSource}" alt="${printableTitle}" loading="lazy" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x266?text=${encodeURIComponent(group.prefix)}+${i}'">
                     </div>
                     <div class="item-info">
                         <div class="item-text">
