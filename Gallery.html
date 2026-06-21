@@ -450,13 +450,18 @@
         }
 
         // 4. Modal Lightbox Active Triggers
+// 4. Modal Lightbox Active Triggers
         function openLightbox(imagePath, imageTitle, groupLabel) {
-            document.getElementById('modalTargetImg').src = imagePath;
+            // Find the active clicked item to see if it used a placeholder fallback
+            const clickedCardImage = event.currentTarget.querySelector('.img-box img');
+            const reliableSourcePath = clickedCardImage ? clickedCardImage.src : imagePath;
+
+            document.getElementById('modalTargetImg').src = reliableSourcePath;
             document.getElementById('modalTargetTitle').innerText = imageTitle;
             document.getElementById('modalTargetCategory').innerText = groupLabel;
             
             const downloadHandle = document.getElementById('modalTargetDownload');
-            downloadHandle.href = imagePath;
+            downloadHandle.href = reliableSourcePath;
             downloadHandle.setAttribute('download', imageTitle);
 
             document.getElementById('imageLightboxModal').style.display = 'flex';
