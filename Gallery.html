@@ -359,13 +359,13 @@
         <div class="filter-tabs">
             <button class="tab-btn active" onclick="filterGallery('all', this)">All Media</button>
             <button class="tab-btn" onclick="filterGallery('kaithe', this)">Kaithe</button>
-            <button class="tab-btn" onclick="filterGallery('water source', this)">Water source</button>
+            <button class="tab-btn" onclick="filterGallery('water-source', this)">Water source</button>
             <button class="tab-btn" onclick="filterGallery('eid', this)">Eid</button>
             <button class="tab-btn" onclick="filterGallery('talent', this)">MUST Got Talent</button>
         </div>
 
         <div class="gallery-grid" id="mainGalleryGrid">
-            </div>
+        </div>
     </main>
 
     <div id="imageLightboxModal" class="gallery-modal" onclick="closeLightbox()">
@@ -394,10 +394,10 @@
     <script>
         // 1. Data configuration schema setting up groups cleanly directly under root paths
         const groupConfigurations = [
-            { id: 'kaithe',    label: 'Kaithe',            folder: '', prefix: 'Kaithe' },
-            { id: 'Water source', label: 'Water source',         folder: '', prefix: 'Water source' },
-            { id: 'eid',       label: 'Eid',               folder: '', prefix: 'Eid' },
-            { id: 'talent',    label: 'MUST Got Talent',   folder: '', prefix: 'Dhaanto' }
+            { id: 'kaithe',       label: 'Kaithe',            folder: '', prefix: 'Kaithe' },
+            { id: 'water-source', label: 'Water source',      folder: '', prefix: 'Water source' },
+            { id: 'eid',          label: 'Eid',               folder: '', prefix: 'Eid' },
+            { id: 'talent',       label: 'MUST Got Talent',   folder: '', prefix: 'Dhaanto' }
         ];
 
         const targetGrid = document.getElementById('mainGalleryGrid');
