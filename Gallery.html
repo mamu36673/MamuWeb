@@ -347,7 +347,6 @@
 </head>
 <body>
 
-    <!-- Header -->
     <header class="sub-header">
         <div class="header-logo">
             <img src="MAMU logo.png" alt="MAMU Logo" onerror="this.onerror=null; this.parentNode.style.display='none';">
@@ -357,22 +356,18 @@
     </header>
 
     <main class="container">
-        <!-- Filter Tabs -->
         <div class="filter-tabs">
             <button class="tab-btn active" onclick="filterGallery('all', this)">All Media</button>
-            <button class="tab-btn" onclick="filterGallery('kainte', this)">Kaithe</button>
+            <button class="tab-btn" onclick="filterGallery('kaithe', this)">Kaithe</button>
             <button class="tab-btn" onclick="filterGallery('waterfall', this)">Waterfall</button>
             <button class="tab-btn" onclick="filterGallery('eid', this)">Eid</button>
             <button class="tab-btn" onclick="filterGallery('talent', this)">MUST Got Talent</button>
         </div>
 
-        <!-- Gallery Grid Wrapper Container -->
         <div class="gallery-grid" id="mainGalleryGrid">
-            <!-- Populated smoothly via structural JavaScript engine below -->
-        </div>
+            </div>
     </main>
 
-    <!-- Modal Box Overlay Lightbox View Layout -->
     <div id="imageLightboxModal" class="gallery-modal" onclick="closeLightbox()">
         <div class="modal-container" onclick="event.stopPropagation();">
             <span class="modal-close" onclick="closeLightbox()">&times;</span>
@@ -392,30 +387,27 @@
         </div>
     </div>
 
-    <!-- Footer Summary Section -->
     <footer>
         <p>© 2026 Muslim Association of Meru University (MAMU). All Rights Reserved.</p>
     </footer>
 
-    <!-- Scripting Configuration Engine Logic -->
     <script>
-        // 1. Data configuration schema setting up groups cleanly without bloating source code lines
+        // 1. Data configuration schema setting up groups cleanly directly under root paths
         const groupConfigurations = [
-            { id: 'kaithe',  label: 'Kaithe',  folder: '', prefix: 'Kaithe' },
-            { id: 'waterfall', label: 'Waterfall', folder: '', prefix: 'Water source' },
-            { id: 'eid',       label: 'Eid',       folder: '', prefix: 'Eid' },
-            { id: 'talent',    label: 'MUST Got Talent', folder: '', prefix: 'Dhaanto' }
+            { id: 'kaithe',    label: 'Kaithe',            folder: '', prefix: 'kaithe' },
+            { id: 'waterfall', label: 'Waterfall',         folder: '', prefix: 'waterfall' },
+            { id: 'eid',       label: 'Eid',               folder: '', prefix: 'eid' },
+            { id: 'talent',    label: 'MUST Got Talent',   folder: '', prefix: 'Dhaanto' }
         ];
 
         const targetGrid = document.getElementById('mainGalleryGrid');
 
-        // 2. Loop assembly structure compiling exactly 20 distinct elements for each of the 4 arrays
+        // 2. Loop assembly structure compiling exactly 100 distinct elements for each of the 4 arrays
         groupConfigurations.forEach(group => {
-            for (let i = 1; i <= 20; i++) {
-                // Generates individual items dynamically. e.g. images/kaithe1.jpg, Dhaanto20.jpg
-                // Alter extension strings below smoothly if using mixed (.png, .jpeg) formats
+            for (let i = 1; i <= 100; i++) {
+                // Generates individual items dynamically pointing right to your files (e.g. kaithe1.jpg, Dhaanto100.jpg)
                 const generatedSource = `${group.folder}${group.prefix}${i}.jpg`;
-                const printableTitle = `${group.label} Display — Frame ${i}`;
+                const printableTitle = `${group.label} — Image ${i}`;
 
                 // Construct DOM elements directly
                 const gridCardNode = document.createElement('div');
