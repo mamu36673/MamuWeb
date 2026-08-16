@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sadaqa & Giving | MAMU</title>
+    <style>
+        /* --- Color Palette Variables --- */
+        :root {
+            --primary-green: #0a5c36;
+            --accent-gold: #f9c623;
+            --deep-brown: #5c3a21;
+            --pure-white: #ffffff;
+            --off-white: #f9f9f9;
+            --text-dark: #222222;
+        }
+
+        /* --- Reset & Global Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--off-white);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='%23f9c623' stroke-width='0.5' stroke-opacity='0.15'/%3E%3Cpath d='M0 0L30 30L0 60Z' fill='none' stroke='%230a5c36' stroke-width='0.5' stroke-opacity='0.1'/%3E%3Cpath d='M60 0L30 30L60 60Z' fill='none' stroke='%230a5c36' stroke-width='0.5' stroke-opacity='0.1'/%3E%3Ccircle cx='30' cy='30' r='5' fill='none' stroke='%235c3a21' stroke-width='0.5' stroke-opacity='0.2'/%3E%3C/svg%3E");
+            scroll-behavior: smooth;
+        }
+
+        /* --- Main Header Row --- */
+        .main-header-row {
+            background: var(--pure-white);
+            border-bottom: 2px solid #eaeaea;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+        }
+
+        .brand-identity {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-container {
+            max-width: 75px;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .brand-title {
+            color: var(--primary-green);
+            font-size: 1.3rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(rgba(10, 92, 54, 0.85), rgba(92, 58, 33, 0.85)), url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+            color: var(--pure-white);
+            text-align: center;
+            padding: 80px 20px;
+            margin-bottom: 40px;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* --- Main Content Layout --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px 20px;
+        }
+
+        .section-card {
+            background: var(--pure-white);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--primary-green);
+            margin-bottom: 40px;
+        }
+
+        h3 {
+            color: var(--primary-green);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--off-white);
+            padding-bottom: 10px;
+        }
+
+        /* --- Quran Quotes Styling --- */
+        .quran-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .quote-card {
+            background-color: var(--off-white);
+            border-radius: 8px;
+            padding: 25px;
+            border-left: 4px solid var(--accent-gold);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .arabic-text {
+            font-size: 1.3rem;
+            color: var(--primary-green);
+            text-align: right;
+            margin-bottom: 15px;
+            font-weight: 600;
+            line-height: 1.8;
+        }
+
+        .translation {
+            font-size: 1rem;
+            color: var(--text-dark);
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .surah-ref {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--deep-brown);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- Donation Callout Box --- */
+        .donate-box {
+            background-color: #f0f7f4;
+            border: 1px solid rgba(10, 92, 54, 0.2);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .donate-box h4 {
+            color: var(--primary-green);
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .donate-btn {
+            display: inline-block;
+            background-color: var(--primary-green);
+            color: var(--pure-white);
+            text-decoration: none;
+            padding: 12px 30px;
+            font-weight: 700;
+            border-radius: 4px;
+            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 2px solid var(--primary-green);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(10, 92, 54, 0.2);
+            cursor: pointer;
+        }
+
+        .donate-btn:hover {
+            background-color: var(--pure-white);
+            color: var(--primary-green);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(10, 92, 54, 0.3);
+        }
+
+        /* --- M-PESA Steps Container --- */
+        .mpesa-instructions {
+            display: none;
+            margin-top: 25px;
+            padding: 25px;
+            background: var(--pure-white);
+            border: 2px dashed var(--primary-green);
+            border-radius: 8px;
+            text-align: left;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .mpesa-instructions h5 {
+            color: var(--primary-green);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .mpesa-steps {
+            list-style-type: decimal;
+            padding-left: 20px;
+        }
+
+        .mpesa-steps li {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--deep-brown);
+            color: var(--pure-white);
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 5px solid var(--primary-green);
+        }
+
+        /* Responsive Viewports */
+        @media (max-width: 768px) {
+            .header-nav-container {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 20px;
+            }
+            .quran-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="main-header-row">
+        <div class="header-nav-container">
+            <a href="#" class="brand-identity">
+                <div class="logo-container">
+                    <img src="MAMU logo.png" alt="MAMU Logo" onerror="this.onerror=null;this.src='https://via.placeholder.com/75x75?text=MAMU'">
+                </div>
+                <div class="brand-title">
+                    Muslim Association of<br>Meru University
+                </div>
+            </a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h2>The Virtues of Sadaqa</h2>
+        <p>Purify your wealth and earn eternal rewards by giving for the sake of Allah (SWT).</p>
+    </section>
+
+    <main class="container">
+        
+        <!-- Quran Quotes Section -->
+        <section class="section-card">
+            <h3>Quranic Guidance on Giving</h3>
+            <div class="quran-grid">
+                
+                <div class="quote-card">
+                    <div>
+                        <div class="arabic-text">مَّثَلُ الَّذِينَ يُنفِقُونَ أَمْوَالَهُمْ فِي سَبِيلِ اللَّهِ كَمَثَلِ حَبَّةٍ أَنبَتَتْ سَبْعَ سَنَابِلَ فِي كُلِّ سُنْبُلَةٍ مِّائَةُ حَبَّةٍ</div>
+                        <p class="translation">"The example of those who spend their wealth in the way of Allah is like a seed of grain which grows seven spikes; in each spike is a hundred grains. And Allah multiplies [his reward] for whom He wills."</p>
+                    </div>
+                    <div class="surah-ref">Surah Al-Baqarah (2:261)</div>
+                </div>
+
+                <div class="quote-card">
+                    <div>
+                        <div class="arabic-text">الَّذِينَ يُنفِقُونَ أَمْوَالَهُم بِاللَّيْلِ وَالنَّهَارِ سِرًّا وَعَلَانِيَةً فَلَهُمْ أَجْرُهُمْ عِندَ رَبِّهِمْ وَلَا خَوْفٌ عَلَيْهِمْ وَلَا هُمْ يَحْزَنُونَ</div>
+                        <p class="translation">"Those who spend their wealth by night and by day, secretly and publicly will find that their reward is with their Lord; on them shall be no fear, nor shall they grieve."</p>
+                    </div>
+                    <div class="surah-ref">Surah Al-Baqarah (2:274)</div>
+                </div>
+
+                <div class="quote-card">
+                    <div>
+                        <div class="arabic-text">لَن تَنَالُوا الْبِرَّ حَتَّىٰ تُنفِقُوا مِمَّا تُحِبُّونَ</div>
+                        <p class="translation">"Never will you attain the good [reward] until you spend [in the way of Allah] from that which you love."</p>
+                    </div>
+                    <div class="surah-ref">Surah Ali 'Imran (3:92)</div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Support MAMU Section -->
+        <section class="section-card">
+            <h3>Support MAMU Initiatives</h3>
+            <p>Your Sadaqa enables the Muslim Association of Meru University to support needy students, facilitate campus dawah activities, host Iftar programs during Ramadan, and maintain Islamic welfare initiatives.</p>
+            
+            <div class="donate-box">
+                <h4>Give Voluntary Charity Today</h4>
+                <p>Invest in your Akhirah by supporting campus Islamic development.</p>
+                <button class="donate-btn" onclick="toggleMpesa()">Donate Sadaqa Now</button>
+                
+                <div id="mpesaDetails" class="mpesa-instructions">
+                    <h5>M-PESA Payment Steps</h5>
+                    <ol class="mpesa-steps">
+                        <li>Open your phone's applications and select the <strong>M-PESA Toolkit</strong>.</li>
+                        <li>Click on <strong>Lipa na M-PESA</strong>.</li>
+                        <li>Select <strong>Buy Goods and Services</strong>.</li>
+                        <li>Enter the <strong>Till Number</strong> provided by the merchant.</li>
+                        <li>Enter the <strong>Amount</strong> you wish to pay.</li>
+                        <li>Enter your <strong>M-PESA PIN</strong>.</li>
+                        <li>Review the confirmation screen (<strong>Hakikisha</strong>) to ensure the merchant name matches, then press <strong>Send</strong> or <strong>OK</strong> to authorize.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 Muslim Association of Meru University (MAMU). All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function toggleMpesa() {
+            var details = document.getElementById("mpesaDetails");
+            if (details.style.display === "block") {
+                details.style.display = "none";
+            } else {
+                details.style.display = "block";
+            }
+        }
+    </script>
+
+</body>
+
+</html>
