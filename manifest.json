@@ -1,5 +1,5 @@
 {
-  "background_color": "#28a718",
+  "background_color": "#2f9626",
   "dir": "ltr",
   "display": "fullscreen",
   "name": "mamu36673.github",
@@ -7,7 +7,7 @@
   "scope": "/",
   "short_name": "mamu36673.github",
   "start_url": "/https://mamu36673.github.io/MamuWeb/",
-  "theme_color": "#afd35b",
+  "theme_color": "#fcfc76",
   "lang": "en",
   "display_override": [
     "fullscreen",
@@ -16,21 +16,10 @@
     "minimal-ui",
     "standalone"
   ],
-  "id": "Mamu App"
-}
- "icons": [
-    {
-      "src": "launchericon-192x192.png",
+  "id": "Mamu App",
+  "description": "Let us make MAMU great by supporting and loving one another for the sake of Allah"
+  "src": "MAMU logo.png",
       "sizes": "192x192",
-      "type": "image/png"
- "screenshots": [
-    {
-      "src": "screenshot-mobile.jpeg",
-      "sizes": "1080x1920",
-      "type": "image/jpeg",
-      "form_factor": "narrow",
-      "label": "Brewing timer screen on mobile"
-    },
- 
-  ]
+      "type": "image/png",
+      "purpose": "any maskable"
 }
