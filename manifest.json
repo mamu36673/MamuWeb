@@ -18,3 +18,19 @@
   ],
   "id": "Mamu App"
 }
+ "icons": [
+    {
+      "src": "launchericon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+ "screenshots": [
+    {
+      "src": "screenshot-mobile.jpeg",
+      "sizes": "1080x1920",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Brewing timer screen on mobile"
+    },
+ 
+  ]
+}
