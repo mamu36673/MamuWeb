@@ -1,17 +1,21 @@
 {
-  "name": "MamuWeb",
-  "short_name": "MamuWeb",
-  "start_url": "./",
-  "scope": "./",
-  "display": "standalone",
-  "background_color": "#0d1117",
-  "theme_color": "#0d1117",
-  "icons": [
-    {
-      "src": "https://mamu36673.github.io/MamuWeb/icon.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ]
+  "background_color": "#2f9626",
+  "dir": "ltr",
+  "display": "fullscreen",
+  "name": "mamu36673.github",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "mamu36673.github",
+  "start_url": "/https://mamu36673.github.io/MamuWeb/",
+  "theme_color": "#fcfc76",
+  "lang": "en",
+  "display_override": [
+    "fullscreen",
+    "browser",
+    "window-controls-overlay",
+    "minimal-ui",
+    "standalone"
+  ],
+  "id": "Mamu App",
+  "description": "Let us make MAMU great by supporting and loving one another for the sake of Allah"
 }
