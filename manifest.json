@@ -1,0 +1,20 @@
+{
+  "background_color": "#28a718",
+  "dir": "ltr",
+  "display": "fullscreen",
+  "name": "mamu36673.github",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "mamu36673.github",
+  "start_url": "/https://mamu36673.github.io/MamuWeb/",
+  "theme_color": "#afd35b",
+  "lang": "en",
+  "display_override": [
+    "fullscreen",
+    "browser",
+    "window-controls-overlay",
+    "minimal-ui",
+    "standalone"
+  ],
+  "id": "Mamu App"
+}
