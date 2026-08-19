@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Committee | MAMU</title>
+    <style>
+        :root { --primary-green: #0a5c36; --accent-gold: #f9c623; --deep-brown: #5c3a21; --pure-white: #ffffff; --off-white: #f9f9f9; --text-dark: #222222; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { color: var(--text-dark); line-height: 1.6; background-color: var(--off-white); padding-bottom: 40px; }
+        .sub-header { background-color: var(--primary-green); color: var(--pure-white); padding: 30px 20px; text-align: center; border-bottom: 4px solid var(--accent-gold); }
+        .sub-header h1 { color: var(--accent-gold); text-transform: uppercase; font-size: 1.8rem; }
+        .sub-header a { color: var(--pure-white); text-decoration: none; font-weight: bold; font-size: 0.9rem; margin-top: 8px; display: inline-block; }
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .section-card { background: var(--pure-white); padding: 35px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-left: 5px solid var(--primary-green); }
+        h3 { color: var(--primary-green); margin-bottom: 15px; font-size: 1.6rem; border-bottom: 2px solid var(--off-white); padding-bottom: 10px; text-transform: uppercase; }
+        .leaders-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; margin-top: 25px; }
+        .leader-card { background: var(--pure-white); border: 1px solid #eef2f5; border-radius: 8px; text-align: center; padding: 25px; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; }
+        .leader-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); border-color: var(--accent-gold); }
+        .avatar-box { width: 120px; height: 120px; margin: 0 auto 15px auto; border-radius: 50%; border: 3px solid var(--accent-gold); overflow: hidden; background-color: #eee; flex-shrink: 0; }
+        .avatar-box img { width: 100%; height: 100%; object-fit: cover; }
+        .leader-card .name { font-size: 1.2rem; font-weight: 700; color: var(--deep-brown); margin-bottom: 4px; word-wrap: break-word; overflow-wrap: break-word; }
+        .leader-card .role { color: var(--primary-green); font-weight: 600; font-size: 0.95rem; text-transform: uppercase; margin-bottom: 8px; word-wrap: break-word; overflow-wrap: break-word; }
+        .leader-card .course-tag { font-size: 0.85rem; color: #666; font-style: italic; word-wrap: break-word; overflow-wrap: break-word; }
+        .mamu-modal { display: none; position: fixed; z-index: 5000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(3px); align-items: center; justify-content: center; }
+        body.modal-open { overflow: hidden; }
+        .modal-wrapper { background-color: var(--pure-white); padding: 35px; border-radius: 12px; border-top: 6px solid var(--primary-green); width: 90%; max-width: 550px; max-height: 85vh; box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative; display: flex; flex-direction: column; }
+        .close-modal { color: #aaa; position: absolute; right: 20px; top: 15px; font-size: 28px; font-weight: bold; cursor: pointer; }
+        .modal-header-content { text-align: center; margin-bottom: 15px; }
+        .modal-avatar { width: 130px; height: 130px; border-radius: 50%; border: 4px solid var(--accent-gold); margin: 0 auto 15px auto; overflow: hidden; }
+        .modal-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .modal-header-content h4 { font-size: 1.4rem; color: var(--deep-brown); margin-bottom: 6px; }
+        .modal-role-badge { display: inline-block; background-color: #f0f7f4; color: var(--primary-green); padding: 5px 14px; font-weight: 700; border-radius: 20px; text-transform: uppercase; font-size: 0.8rem; }
+        .modal-scroll-body { overflow-y: auto; flex-grow: 1; padding-right: 8px; margin-top: 10px; }
+        .modal-description-box { background-color: var(--off-white); border-radius: 6px; padding: 18px; border-left: 4px solid var(--accent-gold); }
+        .modal-description-box h5 { color: var(--primary-green); margin-bottom: 10px; text-transform: uppercase; }
+        .modal-description-box ul { margin-left: 20px; }
+        .modal-description-box li { margin-bottom: 8px; }
+        footer { background-color: var(--deep-brown); color: var(--pure-white); text-align: center; padding: 20px; margin-top: 40px; border-top: 5px solid var(--primary-green); }
+    </style>
+</head>
+<body>
+    <header class="sub-header">
+        <h1>Student Executive Panel</h1>
+        <a href="index.html">← Back to Home</a>
+    </header>
+    <main class="container">
+        <section class="section-card">
+            <h3>MAMU Student Leaders (Executive Board)</h3>
+            <p>Click on any leader's card to open their profile view and read their full constitutional duties and roles.</p>
+            
+            <div class="leaders-grid">
+                <!-- 1. PATRON -->
+                <div class="leader-card" onclick="openLeaderModal(this)">
+                    <div class="avatar-box"><img src="images/patron.jpg" alt="Dr. Mohamed Shano" onerror="this.onerror=null;this.src='https://via.placeholder.com/150'"></div>
+                    <div class="name">Dr. Mohamed Guyo</div>
+                    <div class="role">Patron (Ex-Officio)</div>
+                    <div class="course-tag">Faculty Administration</div>
+                    <div class="constitutional-roles" style="display:none;">
+                        <ul>
+                            <li>Acts as the principal ex-officio link between the association and the university administration.</li>
+                            <li>Provides advisory guidelines to ensure executive strategies align with university policy parameters.</li>
+                            <li>Countersigns external association records, constitutional updates, and high-level structural declarations.</li>
+                            <li>Arbitrates internal structural disputes within the Executive Board or general assembly should standard arbitration fail.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2. CHAIRMAN -->
+                <div class="leader-card" onclick="openLeaderModal(this)">
+                    <div class="avatar-box"><img src="Ramadhan.jpg" alt="Ramadhaan" onerror="this.onerror=null;this.src='https://via.placeholder.com/150'"></div>
+                    <div class="name">Ramadhaan Bakari</div>
+                    <div class="role">Chairman</div>
+                    <div class="course-tag">BSc. Communication and Journalism</div>
+                    <div class="constitutional-roles" style="display:none;">
+                        <ul>
+                            <li>Shall co-ordinate all activities and preside over meetings</li>
+                            <li>Shall be responsible for smooth running of the association</li>
+                            <li>Shall represent the association where such representation is deemed necessary</li>
+                            <li>Custodian of the constitution</li>
+                            <li>Shall make all urgent meeting and decision</li>
+                            <li>Shall control all financial obligations</li>
+                            <li>Shall form standing committee deemed necessary</li>
+                            <li>Shall organize and attend all official meeting</li>
+                            <li>Shall represent MAMU in all external affairs</li>
+                            <li>Shall disseminate all the information concerning MAMU to the members</li>
+                            <li>Shall compile annual reports of the association and give recommendation Attend all official meetings</li>
+                            <li>Shall perform any other function as may be conferred upon him by this constitution</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 3. CHAIRLADY -->
+                <div class="leader-card" onclick="openLeaderModal(this)">
+                    <div class="avatar-box"><img src="images/chairlady.jpg" alt="Aisha" onerror="this.onerror=null;this.src='https://via.placeholder.com/150'"></div>
+                    <div class="name">Amina Shande</div>
+                    <div class="role">Chairlady</div>
+                    <div class="course-tag">BSc. Commerce</div>
+                    <div class="constitutional-roles" style="display:none;">
+                        <ul>
+                            <li>Heads the MAMU Sisters' Wing, overseeing spiritual nurturing, specific welfare parameters, and personal development programs for ladies.</li>
+                            <li>Assists the Chairman in structural operations and executes executive authority over the general assembly in his absence.</li>
+                            <li>Coordinates and aligns the implementation of sister-led Da'wah networks, mentorship projects, and health seminars.</li>
+                            <li>Represents the distinct voice, interests, and protection parameters of female Muslim students on the executive panel.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 4. SECRETARY -->
+                <div class="leader-card" onclick="openLeaderModal(this)">
+                    <div class="avatar-box"><img src="images/secretary.jpg" alt="Halima" onerror="this.onerror=null;this.src='https://via.placeholder.com/150'"></div>
+                    <div class="name">Halima Sora</div>
+                    <div class="role">Secretary</div>
+                    <div class="course-tag">BSc. Education Arts</div>
+                    <div class="constitutional-roles" style="display:none;">
+                        <ul>
+                            <li>Manages and archives all official correspondence, logs, records, and memberships of the association.</li>
+                            <li>Prepares, schedules, and circulates notices, agendas, and clear minutes for all executive and general sessions.</li>
+                            <li>Maintains an accurate register of all registered Muslim students within the university system.</li>
+                            <li>Drafts the standard comprehensive annual secretarial performance reports for review by the patron and assembly.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 5. TREASURER -->
+                <div class="leader-card" onclick="openLeaderModal(this)">
+                    <div class="avatar-box"><img src="images/treasurer.jpg" alt="Lokho" onerror="this.onerror=null;this.src='https://via.placeholder.com/150'"></div>
+                    <div class="name">Lokho</div>
+                    <div class="role">Treasurer</div>
+                    <div class="course-tag">Bachelor of Commerce (Finance)</div>
+                    <div class="constitutional-roles" style="display:none;">
+                        <ul>
+                            <li>Maintains absolute oversight over all association financial resources, checking systems, accounts, and ledger configurations.</li>
+                            <li>Receives, deposits, and tracks all allocations, donations, member contributions, and fundraising structures safely.</li>
+                            <li>Formulates detailed, transparent financial balance sheets and budget reports for presentation to the executive board.</li>
+                            <li>Ensures that all expenditures strictly match constitutional compliance and approved leadership project allocations.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 6. ORGANIZING SECRETARY -->
+                <div class="leader-card" onclick="openLeaderModal(this)">
+                    <div class="avatar-box">
+                        <img src="images/organizing_secretary.jpg" alt="Ammar Mohammed" onerror="this.onerror=null;this.src='https://via.placeholder.com/150'">
+                    </div>
+                    <div class="name">Ammar Mohammed</div>
+                    <div class="role">Organizing Secretary</div>
+                    <div class="course-tag">BSc. Mechanical Engineering</div>
+                    <div class="constitutional-roles" style="display:none;">
+                        <ul>
+                           <li>Head any organization committee appointed to make preparation and stage any event of this Association.</li>
+                            <li>Convener of the organization meeting</li>
+                            <li>Represent the association in other institutions in terms of activities Prepare the calendar of events.</li>
+                            <li>He's the spokesman of the association</li>
+                            <li>Shall invite and receive all visitors and new members in the association</li>
+                            <li>Shall be the link between MAMU members and the outside world</li>
+                            <li>Shall be the link between MAMU members and the outside world</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 7. DA'WA COORDINATOR -->
+                <div class="leader-card" onclick="openLeaderModal(this)">
+                    <div class="avatar-box">
+                        <img src="images/dawa_coordinator.jpg" alt="Mohammmed Amiin" onerror="this.onerror=null;this.src='https://via.placeholder.com/150'">
+                    </div>
+                    <div class="name">Mohammed Amiin Dawud Manoor</div>
+                    <div class="role">Da'wa Coordinator</div>
+                    <div class="course-tag">BSc. Commerce</div>
+                    <div class="constitutional-roles" style="display:none;">
+                        <ul>
+                            <li>Shall coordinate all Da'wa activities/organize special lecturers affecting the society</li>
+                            <li>Shall keep all preaching records</li>
+                            <li>Overseeing all the books in the mosque.</li>
+                            <li>Head of magazine committee</li>
+                            <li>Head of magazine committee</li>
+                            <li>Shall liaise with the organizing secretary</li>
+                            
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 8. STUDENT IMAM -->
+                <div class="leader-card" onclick="openLeaderModal(this)">
+                    <div class="avatar-box">
+                        <img src="images/imam.jpg" alt="Hassan Hussein" onerror="this.onerror=null;this.src='https://via.placeholder.com/150'">
+                    </div>
+                    <div class="name">Hassan</div>
+                    <div class="role">Student Imam</div>
+                    <div class="course-tag">BSc. Education Arts</div>
+                    <div class="constitutional-roles" style="display:none;">
+                        <ul>
+                            <li>Provides primary spiritual guidance, leads daily congregational prayers, and schedules Friday Khutbah alignments.</li>
+                            <li>Delivers or delegates weekly halaqas, Qur'anic exegesis (Tafsir) programs, and jurisprudence sessions for brothers.</li>
+                            <li>Oversees the spiritual correctness, behavioral discipline, and Islamic standard adherence of all association events.</li>
+                            <li>Offers spiritual advice, guidance counseling, and pastoral support to students dealing with personal or academic trials.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 9. MUADHIN -->
+                <div class="leader-card" onclick="openLeaderModal(this)">
+                    <div class="avatar-box">
+                        <img src="images/muadhin.jpg" alt="Abdirasheed" onerror="this.onerror=null;this.src='https://via.placeholder.com/150'">
+                    </div>
+                    <div class="name">Abdirasheed</div>
+                    <div class="role">Muadhin</div>
+                    <div class="course-tag">BSc. Education Arts</div>
+                    <div class="constitutional-roles" style="display:none;">
+                        <ul>
+                            <li>Responsible for making the timely call to prayer (Adhan) for all daily prayers and Jumu'ah congregations.</li>
+                            <li>Maintains the structural cleanliness, safety setup, operational readiness, and equipment care of the campus prayer facilities.</li>
+                            <li>Assists the Student Imam in coordinating orderly row arrays, storage of sacred texts, and administrative security during prayers.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="leaderModal" class="mamu-modal" onclick="closeLeaderModal()">
+        <div class="modal-wrapper" onclick="event.stopPropagation();">
+            <span class="close-modal" onclick="closeLeaderModal()">&times;</span>
+            <div class="modal-header-content">
+                <div class="modal-avatar"><img id="modalImg" src="" alt="Profile Image"></div>
+                <h4 id="modalName"></h4>
+                <div><span id="modalRole" class="modal-role-badge"></span></div>
+                <div id="modalCourse" class="modal-course-text"></div>
+            </div>
+            <div class="modal-scroll-body">
+                <div class="modal-description-box">
+                    <h5>Constitutional Responsibilities</h5>
+                    <div id="modalRolesContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openLeaderModal(card) {
+            document.getElementById('modalImg').src = card.querySelector('.avatar-box img').src;
+            document.getElementById('modalName').innerText = card.querySelector('.name').innerText;
+            document.getElementById('modalRole').innerText = card.querySelector('.role').innerText;
+            document.getElementById('modalCourse').innerText = card.querySelector('.course-tag').innerText;
+            document.getElementById('modalRolesContainer').innerHTML = card.querySelector('.constitutional-roles').innerHTML;
+            document.getElementById('leaderModal').style.display = "flex";
+            document.body.classList.add('modal-open');
+        }
+        function closeLeaderModal() {
+            document.getElementById('leaderModal').style.display = "none";
+            document.body.classList.remove('modal-open');
+        }
+    </script>
+</body>
+</html>
