@@ -1,40 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+  <!-- Core Pages -->
   <url>
-    <loc>https://mamu36673.github.io/MamuWeb/</loc>
+    <loc>https://yourdomain.com/index.html</loc>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/Gallery.html</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/Past%20events.html</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/Sadaqa.html</loc>
+    <priority>0.80</priority>
   </url>
 
+  <!-- Organization Info -->
   <url>
-    <loc>https://mamu36673.github.io/MamuWeb/history.html</loc>
+    <loc>https://yourdomain.com/history.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/vision-mission.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/constitution.html</loc>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/profile.html</loc>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/mosque-direction.html</loc>
+    <priority>0.60</priority>
   </url>
 
+  <!-- Leadership & Administration -->
   <url>
-    <loc>https://mamu36673.github.io/MamuWeb/profile.html</loc>
+    <loc>https://yourdomain.com/executive-committee.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/sub-committees.html</loc>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/patron.html</loc>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/staff-coordinators.html</loc>
+    <priority>0.60</priority>
   </url>
 
+  <!-- Events & Activities -->
   <url>
-    <loc>https://mamu36673.github.io/MamuWeb/executive-committee.html</loc>
+    <loc>https://yourdomain.com/Eid%20Al%20Fitr.html</loc>
+    <priority>0.60</priority>
   </url>
-
   <url>
-    <loc>https://mamu36673.github.io/MamuWeb/mosque-direction.html</loc>
+    <loc>https://yourdomain.com/Kaithe-%20Fall-%20visit.html</loc>
+    <priority>0.60</priority>
   </url>
-
   <url>
-    <loc>https://mamu36673.github.io/MamuWeb/patron.html</loc>
+    <loc>https://yourdomain.com/MUST%20-Got%20-Talent.html</loc>
+    <priority>0.60</priority>
   </url>
-
   <url>
-    <loc>https://mamu36673.github.io/MamuWeb/staff-coordinators.html</loc>
-  </url>
-
-  <url>
-    <loc>https://mamu36673.github.io/MamuWeb/sub-committees.html</loc>
-  </url>
-
-  <url>
-    <loc>https://mamu36673.github.io/MamuWeb/vision-mission.html</loc>
+    <loc>https://yourdomain.com/Water-%20source-%20hike.html</loc>
+    <priority>0.60</priority>
   </url>
 
 </urlset>
