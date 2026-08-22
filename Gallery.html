@@ -39,25 +39,6 @@
             border-bottom: 4px solid var(--accent-gold);
         }
 
-        .header-logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 10px auto;
-            border-radius: 50%;
-            background-color: var(--pure-white);
-            padding: 5px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .header-logo img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-
         .sub-header h1 {
             color: var(--accent-gold);
             text-transform: uppercase;
@@ -327,7 +308,6 @@
             color: var(--deep-brown);
         }
 
-        /* SVG Icon Asset Alignments */
         .icon-svg {
             width: 18px;
             height: 18px;
@@ -361,8 +341,7 @@
             <button class="tab-btn" onclick="filterGallery('talent', this)">MUST Got Talent</button>
         </div>
 
-        <div class="gallery-grid" id="mainGalleryGrid">
-        </div>
+        <div class="gallery-grid" id="mainGalleryGrid"></div>
     </main>
 
     <div id="imageLightboxModal" class="gallery-modal" onclick="closeLightbox()">
@@ -389,57 +368,74 @@
     </footer>
 
     <script>
-        // 1. Data configuration schema setting up groups cleanly directly under root paths
-   const groupConfigurations = [
-    { id: 'kaithe',       label: 'Kaithe',          folder: 'Kaithe/',       prefix: 'Kaithe' },
-    { id: 'water-source', label: 'Water source',    folder: 'Water source/', prefix: 'Water source' },
-    { id: 'eid',          label: 'Eid',             folder: 'Eid/',          prefix: 'Eid' },
-    { id: 'talent',       label: 'MUST Got Talent', folder: 'Dhaanto/',      prefix: 'Dhaanto' }
-];
+        // 1. Data configuration schema using explicit arrays for stored .jpg images
+        const groupConfigurations = [
+            { 
+                id: 'kaithe', 
+                label: 'Kaithe', 
+                folder: 'Kaithe/', 
+                images: ['Kaithe1.jpg', 'Kaithe2.jpg', 'Kaithe3.jpg'] 
+            },
+            { 
+                id: 'water-source', 
+                label: 'Water source', 
+                folder: 'Water source/', 
+                images: ['Water source1.jpg', 'Water source2.jpg', 'Water source3.jpg'] 
+            },
+            { 
+                id: 'eid', 
+                label: 'Eid', 
+                folder: 'Eid/', 
+                images: ['Eid1.jpg', 'Eid2.jpg', 'Eid3.jpg'] 
+            },
+            { 
+                id: 'talent', 
+                label: 'MUST Got Talent', 
+                folder: 'Dhaanto/', 
+                images: ['Dhaanto1.jpg', 'Dhaanto2.jpg', 'Dhaanto3.jpg'] 
+            }
+        ];
 
-const targetGrid = document.getElementById('mainGalleryGrid');
+        const targetGrid = document.getElementById('mainGalleryGrid');
 
-// 2. Loop assembly structure compiling 100 elements per folder
-groupConfigurations.forEach(group => {
-    for (let i = 1; i <= 100; i++) {
-        // encodeURI fixes spaces like "Water source" to "Water%20source" so web servers locate the file
-        const rawPath = `${group.folder}${group.prefix}${i}.jpg`;
-        const generatedSource = encodeURI(rawPath); 
-        const printableTitle = `${group.label} — Image ${i}`;
+        // 2. Loop assembly structure compiling existing files
+        groupConfigurations.forEach(group => {
+            group.images.forEach((fileName, index) => {
+                const rawPath = `${group.folder}${fileName}`;
+                const generatedSource = encodeURI(rawPath); 
+                const printableTitle = `${group.label} — Photo ${index + 1}`;
 
-        // Construct DOM elements directly
-        const gridCardNode = document.createElement('div');
-        gridCardNode.className = `gallery-item group-${group.id}`;
-        gridCardNode.setAttribute('data-category', group.id);
-        gridCardNode.setAttribute('onclick', `openLightbox('${generatedSource}', '${printableTitle}', '${group.label}')`);
+                const gridCardNode = document.createElement('div');
+                gridCardNode.className = `gallery-item group-${group.id}`;
+                gridCardNode.setAttribute('data-category', group.id);
+                gridCardNode.setAttribute('onclick', `openLightbox('${generatedSource}', '${printableTitle}', '${group.label}')`);
 
-        gridCardNode.innerHTML = `
-            <div class="img-box">
-                <img src="${generatedSource}" 
-                     alt="${printableTitle}" 
-                     loading="lazy" 
-                     onerror="this.onerror=null;this.src='https://via.placeholder.com/400x266?text=${encodeURIComponent(group.prefix)}+${i}'">
-            </div>
-            <div class="item-info">
-                <div class="item-text">
-                    <span class="item-title">${printableTitle}</span>
-                    <span class="item-category">${group.label}</span>
-                </div>
-                <button class="download-btn-direct" title="Download File" onclick="event.stopPropagation(); triggerDirectDownload('${generatedSource}', '${printableTitle}')">
-                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
-                </button>
-            </div>
-        `;
-        targetGrid.appendChild(gridCardNode);
-    }
-});
-        // 3. Filter Navigation Processing Logic
+                gridCardNode.innerHTML = `
+                    <div class="img-box">
+                        <img src="${generatedSource}" 
+                             alt="${printableTitle}" 
+                             loading="lazy" 
+                             onerror="this.onerror=null;this.src='https://via.placeholder.com/400x266?text=Image+Not+Found'">
+                    </div>
+                    <div class="item-info">
+                        <div class="item-text">
+                            <span class="item-title">${printableTitle}</span>
+                            <span class="item-category">${group.label}</span>
+                        </div>
+                        <button class="download-btn-direct" title="Download File" onclick="event.stopPropagation(); triggerDirectDownload('${generatedSource}', '${fileName}')">
+                            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+                        </button>
+                    </div>
+                `;
+                targetGrid.appendChild(gridCardNode);
+            });
+        });
+
+        // 3. Filter Navigation Logic
         function filterGallery(targetCategoryId, selectedTabNode) {
-            // Update active state class handles across buttons dynamically
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             selectedTabNode.classList.add('active');
 
-            // Toggle show elements grid styles
             const items = document.querySelectorAll('.gallery-item');
             items.forEach(card => {
                 if (targetCategoryId === 'all' || card.getAttribute('data-category') === targetCategoryId) {
@@ -450,7 +446,7 @@ groupConfigurations.forEach(group => {
             });
         }
 
-        // 4. Modal Lightbox Active Triggers
+        // 4. Modal Lightbox Triggers
         function openLightbox(imagePath, imageTitle, groupLabel) {
             document.getElementById('modalTargetImg').src = imagePath;
             document.getElementById('modalTargetTitle').innerText = imageTitle;
@@ -469,7 +465,7 @@ groupConfigurations.forEach(group => {
             document.body.classList.remove('modal-open');
         }
 
-        // 5. Standalone Action Button Event Handler for Image Download Execution
+        // 5. Direct Download Event Handler
         function triggerDirectDownload(imagePath, filename) {
             const tempAnchorLink = document.createElement('a');
             tempAnchorLink.href = imagePath;
