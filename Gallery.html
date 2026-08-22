@@ -390,47 +390,49 @@
 
     <script>
         // 1. Data configuration schema setting up groups cleanly directly under root paths
-        const groupConfigurations = [
-            { id: 'kaithe',       label: 'Kaithe',            folder: 'Kaithe/',        prefix: 'Kaithe' },
-            { id: 'water-source', label: 'Water source',      folder: 'Water source/',  prefix: 'Water source' },
-            { id: 'eid',          label: 'Eid',               folder: 'Eid/',           prefix: 'Eid' },
-            { id: 'talent',       label: 'MUST Got Talent',   folder: 'Dhaanto/',       prefix: 'Dhaanto' }
-        ];
+   const groupConfigurations = [
+    { id: 'kaithe',       label: 'Kaithe',          folder: 'Kaithe/',       prefix: 'Kaithe' },
+    { id: 'water-source', label: 'Water source',    folder: 'Water source/', prefix: 'Water source' },
+    { id: 'eid',          label: 'Eid',             folder: 'Eid/',          prefix: 'Eid' },
+    { id: 'talent',       label: 'MUST Got Talent', folder: 'Dhaanto/',      prefix: 'Dhaanto' }
+];
 
-        const targetGrid = document.getElementById('mainGalleryGrid');
+const targetGrid = document.getElementById('mainGalleryGrid');
 
-        // 2. Loop assembly structure compiling exactly 100 distinct elements for each of the 4 arrays
-        groupConfigurations.forEach(group => {
-            for (let i = 1; i <= 100; i++) {
-                // Generates individual items dynamically pointing right to your files (e.g. kaithe1.jpg, Dhaanto100.jpg)
-                const generatedSource = `${group.folder}${group.prefix}${i}.jpg`;
-                const printableTitle = `${group.label} — Image ${i}`;
+// 2. Loop assembly structure compiling 100 elements per folder
+groupConfigurations.forEach(group => {
+    for (let i = 1; i <= 100; i++) {
+        // encodeURI fixes spaces like "Water source" to "Water%20source" so web servers locate the file
+        const rawPath = `${group.folder}${group.prefix}${i}.jpg`;
+        const generatedSource = encodeURI(rawPath); 
+        const printableTitle = `${group.label} — Image ${i}`;
 
-                // Construct DOM elements directly
-                const gridCardNode = document.createElement('div');
-                gridCardNode.className = `gallery-item group-${group.id}`;
-                gridCardNode.setAttribute('data-category', group.id);
-                gridCardNode.setAttribute('onclick', `openLightbox('${generatedSource}', '${printableTitle}', '${group.label}')`);
+        // Construct DOM elements directly
+        const gridCardNode = document.createElement('div');
+        gridCardNode.className = `gallery-item group-${group.id}`;
+        gridCardNode.setAttribute('data-category', group.id);
+        gridCardNode.setAttribute('onclick', `openLightbox('${generatedSource}', '${printableTitle}', '${group.label}')`);
 
-                // ADDED loading="lazy" inside the img tag to fix network bottleneck
-                gridCardNode.innerHTML = `
-                    <div class="img-box">
-                        <img src="${generatedSource}" alt="${printableTitle}" loading="lazy" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x266?text=${encodeURIComponent(group.prefix)}+${i}'">
-                    </div>
-                    <div class="item-info">
-                        <div class="item-text">
-                            <span class="item-title">${printableTitle}</span>
-                            <span class="item-category">${group.label}</span>
-                        </div>
-                        <button class="download-btn-direct" title="Download File" onclick="event.stopPropagation(); triggerDirectDownload('${generatedSource}', '${printableTitle}')">
-                            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
-                        </button>
-                    </div>
-                `;
-                targetGrid.appendChild(gridCardNode);
-            }
-        });
-
+        gridCardNode.innerHTML = `
+            <div class="img-box">
+                <img src="${generatedSource}" 
+                     alt="${printableTitle}" 
+                     loading="lazy" 
+                     onerror="this.onerror=null;this.src='https://via.placeholder.com/400x266?text=${encodeURIComponent(group.prefix)}+${i}'">
+            </div>
+            <div class="item-info">
+                <div class="item-text">
+                    <span class="item-title">${printableTitle}</span>
+                    <span class="item-category">${group.label}</span>
+                </div>
+                <button class="download-btn-direct" title="Download File" onclick="event.stopPropagation(); triggerDirectDownload('${generatedSource}', '${printableTitle}')">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+                </button>
+            </div>
+        `;
+        targetGrid.appendChild(gridCardNode);
+    }
+});
         // 3. Filter Navigation Processing Logic
         function filterGallery(targetCategoryId, selectedTabNode) {
             // Update active state class handles across buttons dynamically
