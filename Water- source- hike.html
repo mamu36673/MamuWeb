@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Water Source Visit | MAMU Events</title>
+    
+    <!-- PERF: Preconnect to image fallback domain to cut initial TLS/DNS connection latency -->
+    <link rel="preconnect" href="https://via.placeholder.com" crossorigin>
+
     <style>
         /* --- Color Palette Variables --- */
         :root {
@@ -58,6 +62,8 @@
         }
 
         .logo-container {
+            width: 75px;
+            height: 75px;
             max-width: 75px;
         }
 
@@ -85,7 +91,7 @@
             border: 2px solid var(--primary-green);
             padding: 8px 20px;
             border-radius: 4px;
-            transition: all 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .back-btn:hover {
@@ -128,11 +134,13 @@
 
         .featured-image-box {
             width: 100%;
+            height: 450px;
             max-height: 450px;
             overflow: hidden;
             border-radius: 6px;
             margin-bottom: 30px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            background-color: #eee;
         }
 
         .featured-image-box img {
@@ -191,7 +199,12 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.03);
             border: 1px solid #eaeaea;
             height: 200px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            
+            /* PERF: Isolates layout rendering to avoid browser layout thrashing */
+            content-visibility: auto;
+            contain-intrinsic-size: 250px 200px;
+            will-change: transform;
         }
 
         .gallery-card:hover {
@@ -239,7 +252,7 @@
         <div class="header-nav-container">
             <a href="index.html" class="brand-identity">
                 <div class="logo-container">
-                    <img src="MAMU logo.png" alt="MAMU Logo" onerror="this.onerror=null;this.src='https://via.placeholder.com/75'">
+                    <img src="MAMU logo.png" alt="MAMU Logo" width="75" height="75" loading="eager" fetchpriority="high" decoding="async" onerror="this.onerror=null;this.src='https://via.placeholder.com/75'">
                 </div>
                 <div class="brand-title">
                     Muslim Association of<br>Meru University
@@ -258,7 +271,7 @@
             
             <!-- Featured Event Image Placeholder -->
             <div class="featured-image-box">
-                <img src="Water source/Water source1.jpg" alt="Featured Water Source Image" onerror="this.onerror=null;this.src='https://via.placeholder.com/900x450'">
+                <img src="Water source/Water source1.jpg" alt="Featured Water Source Image" width="900" height="450" loading="eager" fetchpriority="high" decoding="async" onerror="this.onerror=null;this.src='https://via.placeholder.com/900x450'">
             </div>
 
             <!-- Description Container -->
@@ -293,32 +306,32 @@
                     
                     <!-- Photo 1 -->
                     <div class="gallery-card">
-                        <img src="Water source/Water source2.jpg" alt="Water Source Memory 1" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300'">
+                        <img src="Water source/Water source2.jpg" alt="Water Source Memory 1" width="400" height="300" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300'">
                     </div>
 
                     <!-- Photo 2 -->
                     <div class="gallery-card">
-                        <img src="Water source/Water source3.jpg" alt="Water Source Memory 2" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300'">
+                        <img src="Water source/Water source3.jpg" alt="Water Source Memory 2" width="400" height="300" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300'">
                     </div>
 
                     <!-- Photo 3 -->
                     <div class="gallery-card">
-                        <img src="Water source/Water source4.jpg" alt="Water Source Memory 3" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300'">
+                        <img src="Water source/Water source4.jpg" alt="Water Source Memory 3" width="400" height="300" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300'">
                     </div>
 
                     <!-- Photo 4 -->
                     <div class="gallery-card">
-                        <img src="Water source/Water source5.jpg" alt="Water Source Memory 4" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300'">
+                        <img src="Water source/Water source5.jpg" alt="Water Source Memory 4" width="400" height="300" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300'">
                     </div>
 
                     <!-- Photo 5 -->
                     <div class="gallery-card">
-                        <img src="Water source/Water source6.jpg" alt="Water Source Memory 5" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300'">
+                        <img src="Water source/Water source6.jpg" alt="Water Source Memory 5" width="400" height="300" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300'">
                     </div>
 
                     <!-- Photo 6 -->
                     <div class="gallery-card">
-                        <img src="Water source/Water source7.jpg" alt="Water Source Memory 6" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300'">
+                        <img src="Water source/Water source7.jpg" alt="Water Source Memory 6" width="400" height="300" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300'">
                     </div>
 
                 </div>
