@@ -368,42 +368,23 @@
     </footer>
 
     <script>
-        // 1. Data configuration schema using explicit arrays for stored .jpg images
+        // 1. Data configuration schema setting up groups and image limits
         const groupConfigurations = [
-            { 
-                id: 'kaithe', 
-                label: 'Kaithe', 
-                folder: 'Kaithe/', 
-                images: ['Kaithe1.jpg', 'Kaithe2.jpg', 'Kaithe3.jpg'] 
-            },
-            { 
-                id: 'water-source', 
-                label: 'Water source', 
-                folder: 'Water source/', 
-                images: ['Water source1.jpg', 'Water source2.jpg', 'Water source3.jpg'] 
-            },
-            { 
-                id: 'eid', 
-                label: 'Eid', 
-                folder: 'Eid/', 
-                images: ['Eid1.jpg', 'Eid2.jpg', 'Eid3.jpg'] 
-            },
-            { 
-                id: 'talent', 
-                label: 'MUST Got Talent', 
-                folder: 'Dhaanto/', 
-                images: ['Dhaanto1.jpg', 'Dhaanto2.jpg', 'Dhaanto3.jpg'] 
-            }
+            { id: 'kaithe',       label: 'Kaithe',           folder: 'Kaithe/',       prefix: 'Kaithe',       count: 100 },
+            { id: 'water-source', label: 'Water source',     folder: 'Water source/', prefix: 'Water source', count: 100 },
+            { id: 'eid',          label: 'Eid',              folder: 'Eid/',          prefix: 'Eid',          count: 100 },
+            { id: 'talent',       label: 'MUST Got Talent',  folder: 'Dhaanto/',      prefix: 'Dhaanto',      count: 100 }
         ];
 
         const targetGrid = document.getElementById('mainGalleryGrid');
 
-        // 2. Loop assembly structure compiling existing files
+        // 2. Loop assembly structure compiling 100 elements per folder
         groupConfigurations.forEach(group => {
-            group.images.forEach((fileName, index) => {
+            for (let i = 1; i <= group.count; i++) {
+                const fileName = `${group.prefix}${i}.jpg`;
                 const rawPath = `${group.folder}${fileName}`;
                 const generatedSource = encodeURI(rawPath); 
-                const printableTitle = `${group.label} — Photo ${index + 1}`;
+                const printableTitle = `${group.label} — Image ${i}`;
 
                 const gridCardNode = document.createElement('div');
                 gridCardNode.className = `gallery-item group-${group.id}`;
@@ -415,7 +396,7 @@
                         <img src="${generatedSource}" 
                              alt="${printableTitle}" 
                              loading="lazy" 
-                             onerror="this.onerror=null;this.src='https://via.placeholder.com/400x266?text=Image+Not+Found'">
+                             onerror="this.onerror=null; this.closest('.gallery-item').remove();">
                     </div>
                     <div class="item-info">
                         <div class="item-text">
@@ -428,10 +409,10 @@
                     </div>
                 `;
                 targetGrid.appendChild(gridCardNode);
-            });
+            }
         });
 
-        // 3. Filter Navigation Logic
+        // 3. Filter Navigation Processing Logic
         function filterGallery(targetCategoryId, selectedTabNode) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             selectedTabNode.classList.add('active');
@@ -446,7 +427,7 @@
             });
         }
 
-        // 4. Modal Lightbox Triggers
+        // 4. Modal Lightbox Active Triggers
         function openLightbox(imagePath, imageTitle, groupLabel) {
             document.getElementById('modalTargetImg').src = imagePath;
             document.getElementById('modalTargetTitle').innerText = imageTitle;
@@ -465,7 +446,7 @@
             document.body.classList.remove('modal-open');
         }
 
-        // 5. Direct Download Event Handler
+        // 5. Standalone Download Action Event Handler
         function triggerDirectDownload(imagePath, filename) {
             const tempAnchorLink = document.createElement('a');
             tempAnchorLink.href = imagePath;
