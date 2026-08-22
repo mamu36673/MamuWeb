@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Media Gallery | MAMU</title>
+    
+    <!-- PERF 1: Preconnects to speed up third-party image/font fallback requests -->
+    <link rel="preconnect" href="https://via.placeholder.com" crossorigin>
+
     <style>
         /* --- Color Palette Variables --- */
         :root {
@@ -111,10 +115,15 @@
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0,0,0,0.04);
             border: 1px solid #eef2f5;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease, border-color 0.3s ease;
             cursor: pointer;
             display: flex;
             flex-direction: column;
+            
+            /* PERF 2: Offloads off-screen rendering pipeline and optimizes layout isolation */
+            content-visibility: auto;
+            contain-intrinsic-size: 300px 280px;
+            will-change: transform;
         }
 
         .gallery-item:hover {
@@ -191,7 +200,8 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+            will-change: transform;
         }
 
         .download-btn-direct:hover {
@@ -299,7 +309,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.2s ease;
+            transition: background-color 0.2s ease, color 0.2s ease;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
@@ -368,7 +378,6 @@
     </footer>
 
     <script>
-        // 1. Data configuration schema setting up groups and image limits
         const groupConfigurations = [
             { id: 'kaithe',       label: 'Kaithe',           folder: 'Kaithe/',       prefix: 'Kaithe',       count: 100 },
             { id: 'water-source', label: 'Water source',     folder: 'Water source/', prefix: 'Water source', count: 100 },
@@ -378,13 +387,22 @@
 
         const targetGrid = document.getElementById('mainGalleryGrid');
 
-        // 2. Loop assembly structure compiling 100 elements per folder
+        // PERF 3: DocumentFragment bundles DOM insertions into 1 reflow instead of 400 separate layout updates
+        const fragment = document.createDocumentFragment();
+
+        let globalCounter = 0;
+
         groupConfigurations.forEach(group => {
             for (let i = 1; i <= group.count; i++) {
+                globalCounter++;
                 const fileName = `${group.prefix}${i}.jpg`;
                 const rawPath = `${group.folder}${fileName}`;
                 const generatedSource = encodeURI(rawPath); 
                 const printableTitle = `${group.label} — Image ${i}`;
+
+                // PERF 4: Eager load top 8 visible images, lazy load remaining 392
+                const loadingStrategy = globalCounter <= 8 ? 'eager' : 'lazy';
+                const fetchPriority = globalCounter <= 4 ? 'fetchpriority="high"' : '';
 
                 const gridCardNode = document.createElement('div');
                 gridCardNode.className = `gallery-item group-${group.id}`;
@@ -395,7 +413,11 @@
                     <div class="img-box">
                         <img src="${generatedSource}" 
                              alt="${printableTitle}" 
-                             loading="lazy" 
+                             loading="${loadingStrategy}" 
+                             ${fetchPriority} 
+                             decoding="async" 
+                             width="400" 
+                             height="266" 
                              onerror="this.onerror=null; this.closest('.gallery-item').remove();">
                     </div>
                     <div class="item-info">
@@ -408,11 +430,13 @@
                         </button>
                     </div>
                 `;
-                targetGrid.appendChild(gridCardNode);
+                fragment.appendChild(gridCardNode);
             }
         });
 
-        // 3. Filter Navigation Processing Logic
+        // Append all 400 DOM items in one single browser paint
+        targetGrid.appendChild(fragment);
+
         function filterGallery(targetCategoryId, selectedTabNode) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             selectedTabNode.classList.add('active');
@@ -427,7 +451,6 @@
             });
         }
 
-        // 4. Modal Lightbox Active Triggers
         function openLightbox(imagePath, imageTitle, groupLabel) {
             document.getElementById('modalTargetImg').src = imagePath;
             document.getElementById('modalTargetTitle').innerText = imageTitle;
@@ -446,7 +469,6 @@
             document.body.classList.remove('modal-open');
         }
 
-        // 5. Standalone Download Action Event Handler
         function triggerDirectDownload(imagePath, filename) {
             const tempAnchorLink = document.createElement('a');
             tempAnchorLink.href = imagePath;
